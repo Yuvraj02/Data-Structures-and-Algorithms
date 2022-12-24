@@ -1,84 +1,46 @@
 #include <iostream>
 #include <vector>
-#include <queue>
 
 using namespace std;
 
+int partition(vector<int>& A, int low, int high){
+
+    int pivot = A[high];
+    int i = low;
+
+    for (int j = i; j < high; j++)
+    {
+        if(A[j]<=pivot){
+            swap(A[i],A[j]);
+            i++;
+        }
+    }
+    swap(A[i],A[high]);
+
+    return i;
+}
+
+int findKthLargestElement(vector<int> &A, int low, int high,int k){
+
+    //Find position of the pivot
+    int position = partition(A,low,high);
+
+    //If position of pivot is equal to position at length-k then return the pivot element
+    if(position == A.size()-k){
+        return A[position];
+    //If pivot's position is less than k then search in right half
+    }else if(position < A.size()-k){
+        return findKthLargestElement(A,position+1,high,k);
+    //If pivot's position is more than k then search in left half
+    }else{
+        return findKthLargestElement(A,low,position-1,k);
+    }
+}
 
 int main(){
 
-    vector<int> A = {1,3};
-    int k = 1;
+    vector<int> A = {3,2,3,1,2,4,5,5,6};
 
-    priority_queue<int>  q;
-
-    for (int i = 0; i < A.size(); i++)
-    {
-        q.push(A[i]);
-    }
-
-
-     for (int i = 1; i < k; i++)
-     {
-        q.pop();
-     }
-        
-        cout<<q.top();
-
+    cout<<findKthLargestElement(A,0,A.size()-1,2)<<endl;
     return 0;
 }
-
-
-//Quick Select Algorithm
-
-// int partition(vector<int>& arr, int left, int right) {
-
-//     int pivot = arr[left] ;
-//     int l = left + 1 ;
-//     int r = right;
-//     while (l <= r) {
-
-//         if (arr[l] < pivot && arr[r] > pivot) {
-//             swap(arr[l], arr[r]);
-//             l++ ;
-//             r-- ;
-//         }
-//         if (arr[l] >= pivot) {
-//             l++;
-//         }
-//         if (arr[r] <= pivot) {
-//             r--;
-//         }
-
-//     }   
-//     swap(arr[left], arr[r]);
-
-//     // for (auto i : arr )
-//     // {
-//     //     cout<<i<<" ";
-//     // }
-    
-
-//     return r;
-// }
-
-// int kth_Largest_Element(vector<int>& arr, int k) {
-
-//     partition(arr,0,arr.size()-1);
-//     int left = 0, right = arr.size() - 1, kth;
-//     while (1) {
-//         int idx = partition(arr, left, right);
-//         if (idx-left == k - 1) {
-//             kth = arr[idx];
-//             break;
-//         }
-//         if (idx-left < k - 1) {
-//             right = idx - 1;
-//         } else {
-//             left = idx + 1;
-//         }
-//     }
-//     return kth;
- 
-// }
-
