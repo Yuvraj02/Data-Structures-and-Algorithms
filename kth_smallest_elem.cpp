@@ -11,13 +11,11 @@ int partition(int arr[], int left, int right){
 
     for (int j = i; j <= right-1; j++)
     {
-            if(arr[j]<=pivot){
-                swap(arr[i],arr[j]);
-                i++;
-            }
-        
+        if(arr[j]<=pivot){
+            swap(arr[i],arr[j]);
+            i++;
+        }
     }
-    
     swap(arr[i],arr[right]);
     return i;
    
