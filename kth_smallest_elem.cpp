@@ -25,24 +25,18 @@ int partition(int arr[], int left, int right){
 
 int kthSmallest(int arr[], int l, int r, int K)
 {
-    // If k is smaller than number of elements in array
-    if (K > 0 && K <= r - l + 1) {
+        int position = partition(arr,l,r);
 
-        // Partition the array around last element and get
-        // position of pivot element in sorted array
-        int pos = partition(arr, l, r);
+        if(position == K-1){
+            return arr[position];
+        }else if(position < K-1){
+            //Search in right subarray
+            return kthSmallest(arr,position+1,r,K);
+        }else{
+            //search in left subarray
+            return kthSmallest(arr,l,position-1,K);
+        }
 
-        // If position is same as k
-        if (pos - l == K - 1)
-            return arr[pos];
-        if (pos - l > K - 1) // If position is more, recur
-                             // for left subarray
-            return kthSmallest(arr, l, pos - 1, K);
-
-        // Else recur for right subarray
-        return kthSmallest(arr, pos + 1, r,
-                           K - pos + l - 1);
-    }
     return -1;
 }
 
@@ -51,7 +45,7 @@ int main(){
 
     int arr[] = {7,10,4,3,20,15};
     int n = sizeof(arr)/sizeof(int);
-   cout<<kthSmallest(arr,0,n-1,2);
+   cout<<kthSmallest(arr,0,n-1,3);
     
 
     return 0;
