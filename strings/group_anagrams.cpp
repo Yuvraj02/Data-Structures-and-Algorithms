@@ -23,7 +23,6 @@ map<char,int> frequenMap(string s){
 int main(){
 
     vector<string> strs = {"eat","tea","tan","ate","nat","bat"};
-
     map<map<char, int>, vector<string>> m;
     vector<vector<string>> stringVec;
     for (int i = 0; i < strs.size(); i++)
