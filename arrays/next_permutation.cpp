@@ -21,6 +21,8 @@ void nextPermutation(vector<int>& nums) {
         while (k<j)
         {
             swap(nums[k],nums[j]);
+            k++;
+            j--;
         }
 
      for (auto i : nums)
@@ -32,7 +34,7 @@ void nextPermutation(vector<int>& nums) {
 
 int main(){ 
 
-    vector<int> nums = {1,1,5};
+    vector<int> nums = {1,1,3,5};
 
     //Optimal Solution
     nextPermutation(nums);
