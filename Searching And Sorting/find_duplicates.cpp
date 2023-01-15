@@ -6,20 +6,24 @@ using namespace std;
 
 int main(){
 
-    vector<int> A = {13,9 ,25 ,1 ,1 ,0 ,22 ,13 ,22 ,20 ,3 ,8 ,11 ,25, 10 ,3 ,15 ,11 ,19 ,20 ,2 ,4 ,25 ,14,23,14};
-
+    vector<int> A = {1,2,3,4,3};
     vector<int> finalVec;
 
-    for(int i = 0; i<A.size();i++){
+    //Traverse the array and change each value of A[A[i]%size] to A[A[i]%size] + size;
 
-        if(A[abs(A[i])-1] < 0)
-            finalVec.push_back(abs(A[i]));
-        else
-            A[abs(A[i])-1] = -A[abs(A[i])-1];
+    for(int i = 0; i<A.size();i++)
+        A[A[i]%A.size()] = A[A[i]%A.size()] + A.size();
+
+    for (int i = 0; i < A.size(); i++)
+    {
+        if(A[i] >=A.size()*2){
+            finalVec.push_back(i);
+        }
     }
 
+    cout<<A.size()<<endl;
+    
     sort(finalVec.begin(),finalVec.end());
-
     for(auto i : finalVec){
         cout<<i<<" ";
     }
