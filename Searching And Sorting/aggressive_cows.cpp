@@ -9,7 +9,7 @@ bool isPossibleSolution(vector<int> A,int k, int mid){
 
     for(int i = 0; i<A.size();i++){
 
-        if(A[i]-lastCow>=mid){
+        if(A[i]-lastCow >=mid){
                 cowCount++;
                 lastCow = A[i];
                 if(cowCount == k){
