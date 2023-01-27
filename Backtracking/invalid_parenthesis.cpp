@@ -1,86 +1,58 @@
 #include <iostream>
-#include <stack>
 #include <vector>
+#include <stack>
 #include <set>
+#include <string.h>
 using namespace std;
-
 
 int getMin(string str){
 
-    stack<char> s;
+    stack<int> s;
 
     for(int i=0;i<str.size();i++){
-        
         if(!s.empty() && (str[i]==')' && s.top()=='(')){
             s.pop();
         }else if(str[i]=='(' || str[i]==')'){
             s.push(str[i]);
         }
-        
     }
-   return s.size();
+return s.size();
 }
 
-bool validParenthesis(string str){
 
-    stack<char> s;
-    for (int i = 0; i < str.size(); i++)
-    {
-        if(str[i]!=')'){
-            s.push(str[i]);
-        }else if(str[i]==')' && s.top()==')'){
-            return false;
-        }else{
-            s.pop();
-        }
-    }
-    
-    return true;
-}
+void solve(string str, vector<string> &ans, int min,set<string>& s){
 
-void solve(string str,int minimum, set<string>& s){
-
-    if(minimum==0){
-        int minNow = getMin(str);
-        if(minNow==0){
-                if(s.find(str) == s.end())
+    if(min==0){
+        if(getMin(str)==0){
+                if(s.find(str)==s.end()){
+                    ans.push_back(str);
                     s.insert(str);
+                }
         }
         return;
     }
 
-    for (int k = 0; k < str.size(); k++)
-    {
-        string output =""; 
-        for (int j = 0; j < str.size(); j++)
-        {
-            if(k==j)
-                continue;
-
-            output+=str[j];
-        }
-        
-        solve(output,minimum-1,s);
+    for(int i = 0;i<str.size();i++){
+         string output = str.substr(0,i);
+         output += str.substr(i+1);      
+         solve(output,ans,min-1,s);
     }
+
 }
+
 
 int main(){
 
-    string brackets = "(a)())()";
+    string str = "()(((((((()";
+   
+    int minInvalid = getMin(str);
+    vector<string> ans;
     set<string> s;
-    vector<string> sv;
-    int minimum = getMin(brackets);
-    solve(brackets,minimum,s);
-    auto it = s.begin();
-    while (it!=s.end())
-    {
-        sv.push_back(*it);
-        it++;
-    }
-    
-    for(auto i : sv){
-        cout<<i<<", ";
-    }
+    solve(str,ans,minInvalid,s);
 
+    //cout<<minInvalid;
+    for(auto i:ans){
+        cout<<i<<" ";
+    }
     return 0;
 }
