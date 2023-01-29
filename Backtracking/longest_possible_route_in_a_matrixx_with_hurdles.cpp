@@ -86,7 +86,7 @@ int main(){
     int xs = 0,ys=0;
     int xd=1,yd=7;
 
-    cout<<longestPath(matrix,xs,ys,xd,yd);
+    cout<<longestPath(matrix,xs,ys,xd,yd);Z
 
     return 0;
 }
