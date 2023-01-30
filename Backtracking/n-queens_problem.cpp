@@ -93,7 +93,6 @@ for (int i = 0; i < n; i++)
     
 }
 
-
 solve(board,n,0,ans);
 
 return ans;
