@@ -35,6 +35,7 @@ void insertAt(int position, int val,Node* &head, Node* &tail){
     int index = 1;
     while (index<position-1)
     {
+
         temp = temp->nextNode;
         index++;
     }
@@ -48,6 +49,51 @@ void insertAt(int position, int val,Node* &head, Node* &tail){
     }
 }
 
+void deleteAt(int position, Node* &head, Node* &tail){
+
+    Node *current = head;
+
+    if(position==1){
+        head=head->nextNode;
+        delete current;
+        return ;
+    }
+
+    Node *prev = nullptr; 
+    int index = 1;
+
+    while (index<position)
+    {
+        prev = current;
+        current = current->nextNode;
+        index++;
+    }
+    
+    if(current->nextNode==nullptr){
+        //Tail
+        tail=prev;
+        tail->nextNode=nullptr;
+        delete current;
+    }else{
+        prev->nextNode = current->nextNode;
+        delete current;
+    }
+
+
+}
+
+void printList(Node* &head){
+
+    Node *temp = head;
+    while (temp!=nullptr)
+    {
+        cout<<temp->val<<"-->";
+        temp = temp->nextNode;
+    }
+    cout<<"NULL"<<endl;
+
+}
+
 int main(){
 
     Node* head = new Node(10);
@@ -58,13 +104,9 @@ int main(){
     insertAtHead(head,100);
     insertAtTail(tail, 50);
     insertAt(7,200,head,tail);
-
-    Node *temp = head;
-    while (temp!=nullptr)
-    {
-        cout<<temp->val<<"-->";
-        temp = temp->nextNode;
-    }
-    cout<<"NULL"<<endl;
+    printList(head);
+    deleteAt(7,head,tail);
+    printList(head);
+    
     return 0;
 }
