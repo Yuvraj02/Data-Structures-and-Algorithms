@@ -24,6 +24,16 @@ void insertAtHead(Node* &head, int val){
 
 }
 
+void insertAtTail(Node* &tail, int val){
+
+    Node *newNode = new Node(val);
+
+    tail->nextNode = newNode;
+    newNode->previousNode = tail;
+    tail = newNode;
+
+}
+
 void printList(Node* &head){
 
     Node *temp = head;
@@ -43,5 +53,8 @@ int main(){
     Node *tail = head;
     insertAtHead(head,10);
     printList(head);
+    insertAtTail(tail,30);
+    printList(head);
 
+    cout<<"Head : "<<head->val<<"\n"<<"Tail : "<<tail->val<<endl;
 }
