@@ -30,21 +30,17 @@ void insertAfter(int data, int val, Node* &tail){
     current->nextNode = newNode;
 }
 
-void printList(Node* &tail,int position){
+void printList(Node* &tail){
 
     Node *temp = tail;
     
-    int index = 1;
-
-    while (index<position)
+    do
     {
         cout<<temp->val<<"--->";
         temp = temp->nextNode;
-        index++;
-    }
+    } while (temp!=tail);
     
     cout<<temp->val<<endl;
-
 }
 
 int main(){
@@ -52,7 +48,10 @@ int main(){
     Node *tail = new Node(10);
     tail->nextNode = tail;
     insertAfter(10,7,tail);
-    printList(tail,3);
+    insertAfter(7,6,tail);
+    insertAfter(6,11,tail);
+    insertAfter(10,4,tail);
+    printList(tail);
     cout<<"Tail: "<<tail->val<<endl;
 
     return 0;
