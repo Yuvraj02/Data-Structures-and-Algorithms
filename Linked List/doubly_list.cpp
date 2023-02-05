@@ -79,6 +79,7 @@ void deleteNode(int position, Node* &head, Node* &tail){
         Node *temp = head;
         head = head->nextNode;
         head->previousNode = NULL;
+        temp->nextNode = NULL;
         delete temp;
         return;
     }
@@ -98,7 +99,10 @@ void deleteNode(int position, Node* &head, Node* &tail){
     }else{
         current->previousNode->nextNode = current->nextNode;
         current->nextNode->previousNode = current->previousNode;
+       
     }
+     current->nextNode = NULL;
+     current->previousNode = NULL;
     delete current;
 }
 
