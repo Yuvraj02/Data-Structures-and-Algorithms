@@ -34,6 +34,25 @@ void printList(LinkedList* &head){
     cout<<"NULL"<<endl;
 }
 
+void reverse(LinkedList* &head, LinkedList* &prev, LinkedList* &current){
+
+    if(current==NULL){
+        head = prev;
+        return;
+    }
+    
+    LinkedList *forward = current->nextNode;
+    reverse(head, current, forward);
+    current->nextNode = prev;
+}
+
+void reverseLinkedList(LinkedList* &head){
+
+    LinkedList *prev = NULL;
+    LinkedList *current = head;
+
+    reverse(head, prev, current);
+}
 
 //Iterative Approach
 // void reverseLinkedList(LinkedList* &head){
@@ -55,6 +74,7 @@ void printList(LinkedList* &head){
 //     head = current;
 // }
 
+
 int main(){
 
     LinkedList *head = new LinkedList(1);
@@ -63,7 +83,7 @@ int main(){
     for(int i = 2; i<=6;i++)
         insertAtTail(tail,i);
 
-    //reverseLinkedList(head);
+    reverseLinkedList(head);
 
     printList(head);
     return 0;
