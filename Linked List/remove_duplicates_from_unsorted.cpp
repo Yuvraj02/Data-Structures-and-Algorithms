@@ -1,5 +1,5 @@
 #include <iostream>
-
+#include <unordered_set>
 using namespace std;
 
 class Node {
@@ -34,29 +34,54 @@ void printList(Node *head){
 
 }
 
-void removeDuplicates(Node* &head){
-   
+void removeDuplicates(Node* head){
+
+    unordered_set<int> mapp;
+
     Node *current = head;
-    Node *temp = current;
+    Node *prev = NULL;
 
     while (current!=NULL)
     {
-        while (temp!=NULL)
-        {
-            // cout<<"YES";
-            if(temp->next!= NULL && temp->next->data==current->data){
-                Node *node_to_delete = temp->next;
-                temp->next = temp->next->next;
-                delete node_to_delete;    
-            }else{
-                temp = temp->next;
-            }
+
+        if(mapp.find(current->data)!=mapp.end()){
+            Node *node_to_delete = current;
+            prev->next = current->next;
+            current = prev;
+            delete node_to_delete;
+        }else{
+            mapp.insert(current->data);
         }
+
+        prev = current;
         current = current->next;
-        temp = current;
     }
-    
+
 }
+//------Bruteforce Solution----------------
+// void removeDuplicates(Node* &head){
+   
+//     Node *current = head;
+//     Node *temp = current;
+
+//     while (current!=NULL)
+//     {
+//         while (temp!=NULL)
+//         {
+//             // cout<<"YES";
+//             if(temp->next!= NULL && temp->next->data==current->data){
+//                 Node *node_to_delete = temp->next;
+//                 temp->next = temp->next->next;
+//                 delete node_to_delete;    
+//             }else{
+//                 temp = temp->next;
+//             }
+//         }
+//         current = current->next;
+//         temp = current;
+//     }
+    
+// }
 
 int main(){
 
