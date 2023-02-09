@@ -47,7 +47,6 @@ Node *detectCycle(Node* &head){
     return NULL;
 }
 
-
 Node *removeLoop(Node *head)
 {
         
