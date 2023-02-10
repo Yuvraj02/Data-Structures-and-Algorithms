@@ -92,7 +92,43 @@ void printList(Node* &head){
 
 }
 
+void merge(Node* &head1, Node* &head2){
 
+    if(head2->data < head1->data){
+        merge(head2, head1);
+        return ;
+    }
+
+    if(head1->next==NULL){
+        head1->next = head2;
+        return;
+    }
+
+    Node *curr1 = head1;
+    Node *next1 = curr1->next;
+    Node *curr2 = head2;
+
+    while (next1!=NULL && curr2!=NULL)
+    {
+        if(curr2->data >= curr1->data && curr2->data <= next1->data){
+                curr1->next = curr2;
+                Node *next2 = curr2->next;
+                curr2->next = next1;
+                curr1 = curr2;
+                curr2 = next2;
+        }else{
+            curr1 = next1;
+            next1 = next1->next;
+        }
+
+        if(next1==NULL){
+            curr1->next = curr2;
+        }
+
+    }
+    
+
+}
 
 
 int main(){
@@ -111,7 +147,8 @@ int main(){
     insertAtTail(tail2,6);
     insertAtTail(tail2,7);
     insertAtTail(tail2,8);
+    merge(head1,head2);
     printList(head1);
-    printList(head2);
+    //printList(head2);
     return 0;
 }
