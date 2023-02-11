@@ -4,24 +4,24 @@ using namespace std;
 
 class Node {
     public:
-        int val;
-        Node *nextNode;
+        int data;
+        Node *next;
 
     Node(int val){
-        this->val = val;
-        this->nextNode = nullptr;
+        this->data = val;
+        this->next = nullptr;
     }
 };
 
 void insertAtTail(Node* &tail, int val){
     Node *newNode = new Node(val);
-    tail->nextNode = newNode;
+    tail->next = newNode;
     tail=newNode;
 }
 
 void insertAtHead(Node* &head, int val){
     Node *newNode = new Node(val);
-    newNode->nextNode = head;
+    newNode->next = head;
     head = newNode;
 }
 
@@ -36,16 +36,16 @@ void insertAt(int position, int val,Node* &head, Node* &tail){
     while (index<position-1)
     {
 
-        temp = temp->nextNode;
+        temp = temp->next;
         index++;
     }
     
-    if(temp->nextNode==nullptr){
+    if(temp->next==nullptr){
         insertAtTail(tail,val);
     }else{
         Node *newNode = new Node(val);
-        newNode->nextNode = temp->nextNode;
-        temp->nextNode = newNode;
+        newNode->next = temp->next;
+        temp->next = newNode;
     }
 }
 
@@ -54,7 +54,7 @@ void deleteAt(int position, Node* &head, Node* &tail){
     Node *current = head;
 
     if(position==1){
-        head=head->nextNode;
+        head=head->next;
         delete current;
         return ;
     }
@@ -65,17 +65,17 @@ void deleteAt(int position, Node* &head, Node* &tail){
     while (index<position)
     {
         prev = current;
-        current = current->nextNode;
+        current = current->next;
         index++;
     }
     
-    if(current->nextNode==nullptr){
+    if(current->next==nullptr){
         //Tail
         tail=prev;
-        tail->nextNode=nullptr;
+        tail->next=nullptr;
         delete current;
     }else{
-        prev->nextNode = current->nextNode;
+        prev->next = current->next;
         delete current;
     }
 
@@ -87,8 +87,8 @@ void printList(Node* &head){
     Node *temp = head;
     while (temp!=nullptr)
     {
-        cout<<temp->val<<"-->";
-        temp = temp->nextNode;
+        cout<<temp->data<<"-->";
+        temp = temp->next;
     }
     cout<<"NULL"<<endl;
 
