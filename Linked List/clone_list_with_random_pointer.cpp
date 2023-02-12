@@ -3,6 +3,7 @@
 
 using namespace std;
 
+
 class Node{
     public:
     int data;
@@ -16,6 +17,8 @@ class Node{
     }
 
 };
+
+Node *clone(Node* &head);
 
 void insertAtTail(Node* &tail, int data){
 
@@ -68,49 +71,112 @@ int main(){
     cout<<head->next->data<<"--->"<<head->next->arb->data<<endl;
     //--------------------------
 
-    unordered_map<Node*, Node*> mapp;
-
-    Node *cloneHead = NULL;
-    Node *cloneTail = cloneHead;
-    Node *temp = head;
-
-    //Create a Clone of original list first
-    while (temp!=NULL)
-    {
-        if(cloneHead==NULL){
-            Node *newNode = new Node(temp->data);
-            cloneHead = newNode;
-            cloneTail=cloneHead;
-            mapp.insert(make_pair(temp,newNode));
-        }else{
-            mapp.insert(make_pair(temp, insertAtCloneTail(cloneTail,temp->data)));
-        }
-
-        temp = temp->next;
-    }
-    
-    // auto it = mapp.begin();
-    // cout<<"----------------"<<endl;
-    // while(it!=mapp.end()){
-    //     cout<<it->first->data<<"--->"<<it->second->data<<endl;
-    //     it++;
-    // }
-
-    //Traverse the list and set arbitrary pointers
-    Node *originalNode = head;
-    Node *cloneNode = cloneHead;
-    while(originalNode!=NULL){
-
-        cloneNode->arb = mapp[originalNode->arb];
-        cloneNode = cloneNode->next;
-        originalNode = originalNode->next;
-    }
+   
+   
     cout<<"Clone List: "<<endl;
+
+    Node *cloneHead = clone(head);
     printList(cloneHead);
     cout<<"Arb Pointers Of Clone :  "<<endl;
-    cout<<head->data<<"--->"<<head->arb->data<<endl;
-    cout<<head->next->next->data<<"--->"<<head->next->next->arb->data<<endl;
+    cout<<cloneHead->data<<"--->"<<cloneHead->arb->data<<endl;
+    cout<<cloneHead->next->next->data<<"--->"<<cloneHead->next->next->arb->data<<endl;
     cout<<tail->data<<"--->"<<tail->arb->data<<endl;
-    cout<<head->next->data<<"--->"<<head->next->arb->data<<endl;
+    cout<<cloneHead->next->data<<"--->"<<cloneHead->next->arb->data<<endl;
     return 0;
 }
+
+//Optimized Approach
+Node *clone(Node* &head){
+ Node *cloneHead = NULL;
+        Node *cloneTail = cloneHead;
+        
+        Node *original = head;
+        while(original!=NULL){
+            
+            if(cloneHead==NULL){
+                Node *newNode = new Node(original->data);
+                cloneHead = newNode;
+                cloneTail = cloneHead;
+            }else{
+                insertAtCloneTail(cloneTail,original->data);
+            }
+            
+            original = original->next;
+        }
+        
+        
+        
+        //Step 2: Add nodes of clone list in between    
+        original = head;
+        Node *clone = cloneHead;
+        
+        while(original!=NULL && clone!=NULL){
+            Node *next = original->next;
+            original->next = clone;
+            original = next;
+            next = clone->next;
+            clone->next = original;
+            clone = next;
+        }
+        
+        //Step 3 : Add random pointers
+        
+        original = head;
+        clone = cloneHead;
+        while(original!=NULL){
+            original->next->arb = original->arb ? original->arb->next : original->arb;
+            original = original->next->next;
+        }
+        
+        //Step 4 revert changes
+        original = head;
+        clone = cloneHead;
+        while(original!=NULL && clone!=NULL){
+            original->next = clone->next;
+            original = original->next;
+            if(original!=NULL){
+            clone->next = original->next;
+            }
+             clone = clone->next;
+        }
+        
+        // printList(head);
+        return head;
+    }
+
+//Using Map
+
+// Node *clone(Node* &head){
+
+//  unordered_map<Node*, Node*> mapp;
+
+//     Node *cloneHead = NULL;
+//     Node *cloneTail = cloneHead;
+//     Node *temp = head;
+
+//     //Create a Clone of original list first
+//     while (temp!=NULL)
+//     {
+//         if(cloneHead==NULL){
+//             Node *newNode = new Node(temp->data);
+//             cloneHead = newNode;
+//             cloneTail=cloneHead;
+//             mapp.insert(make_pair(temp,newNode));
+//         }else{
+//             mapp.insert(make_pair(temp, insertAtCloneTail(cloneTail,temp->data)));
+//         }
+
+//         temp = temp->next;
+//     }
+    
+//     //Traverse the list and set arbitrary pointers
+//     Node *originalNode = head;
+//     Node *cloneNode = cloneHead;
+//     while(originalNode!=NULL){
+
+//         cloneNode->arb = mapp[originalNode->arb];
+//         cloneNode = cloneNode->next;
+//         originalNode = originalNode->next;
+//     }
+//     return cloneHead;
+// }
