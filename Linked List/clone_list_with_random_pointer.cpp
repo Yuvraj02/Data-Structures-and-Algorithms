@@ -97,12 +97,13 @@ int main(){
     // }
 
     //Traverse the list and set arbitrary pointers
-    temp = head;
-    while(temp!=NULL){
-        auto it = mapp.find(temp);
-        it->second->arb = temp->arb;
+    Node *originalNode = head;
+    Node *cloneNode = cloneHead;
+    while(originalNode!=NULL){
 
-        temp = temp->next;
+        cloneNode->arb = mapp[originalNode->arb];
+        cloneNode = cloneNode->next;
+        originalNode = originalNode->next;
     }
     cout<<"Clone List: "<<endl;
     printList(cloneHead);
