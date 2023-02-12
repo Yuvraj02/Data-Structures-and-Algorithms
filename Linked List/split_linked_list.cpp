@@ -59,7 +59,6 @@ void printList(Node* &head){
 void splitList(Node *head){
     Node *slow = head;
     Node *fast = head->nextNode;
-    Node *previous = NULL;
     Node *end = NULL;
    
     while (fast!=head)
@@ -70,13 +69,12 @@ void splitList(Node *head){
         if(fast!=head){
             end = fast;
             fast = fast->nextNode;
+            slow=slow->nextNode;
         }
-        previous = slow;
-        slow=slow->nextNode;
     }
     
-    Node *head2 = slow;
-    previous->nextNode = NULL;
+    Node *head2 = slow->nextNode;
+    slow->nextNode = NULL;
     end->nextNode = NULL;
 
     cout<<"After split: "<<endl;
@@ -94,7 +92,7 @@ int main(){
     insertAfter(7,6,head);
     insertAfter(6,11,head);
     insertAfter(10,4,head);
-    //insertAfter(7,9,head);
+    insertAfter(7,9,head);
     printCircularList(head);
     splitList(head);
 
