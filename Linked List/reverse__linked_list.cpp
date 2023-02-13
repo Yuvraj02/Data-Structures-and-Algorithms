@@ -74,7 +74,6 @@ void reverseLinkedList(LinkedList* &head){
 //     head = current;
 // }
 
-
 int main(){
 
     LinkedList *head = new LinkedList(1);
