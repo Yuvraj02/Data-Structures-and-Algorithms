@@ -134,7 +134,6 @@ Node* merge(Node* first, Node* second){
     return ans->next;
 }
 
-
 int main(){
 
     Node *head1 = new Node(1);
