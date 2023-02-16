@@ -34,9 +34,10 @@ void printList(Node *head){
 void deleteNode(Node* &node){
 
     //Copy the contents of next node
-    Node *curr = node;
-    curr->data = curr->next->data;
-    curr->next = curr->next->next;
+    Node *temp = node->next;
+    node->data = node->next->data;
+    node->next = node->next->next;
+    delete temp;
     
 }
 
