@@ -30,7 +30,6 @@ int main(){
         
         double avg = (maxNum+minNum)/2.0;
        // cout<<avg<<endl;
-
        if(num>avg)
        count++;
 
