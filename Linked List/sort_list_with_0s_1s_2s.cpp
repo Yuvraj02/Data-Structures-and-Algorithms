@@ -14,7 +14,6 @@ class Node{
 };
 
 void insertAtTail(Node* &tail, int val){
-
     Node *newNode = new Node(val);
     tail->next = newNode;
     tail = newNode;
