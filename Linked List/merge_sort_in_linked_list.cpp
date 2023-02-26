@@ -130,19 +130,8 @@ Node* merge(Node* first, Node* second){
         }
     }
 
-    while (first!=NULL)
-    {
-            temp->next = first;
-            temp = first;
-            first = first->next;
-    }
-
-    while (second!=NULL)
-    {
-        temp->next = second;
-        temp = second;
-        second = second->next;
-    }
+    if(first) temp->next = first;
+    if(second) temp->next = second;
 
     return ans->next;
 }
