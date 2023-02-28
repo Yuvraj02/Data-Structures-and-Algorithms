@@ -121,13 +121,12 @@ Node* merge(Node* first, Node* second){
     {
         if(first->data < second->data){
             temp->next = first;
-            temp = temp->next;
             first = first->next;
         }else{
             temp->next = second;
-            temp = temp->next;
             second = second->next;
         }
+         temp = temp->next;
     }
 
     if(first) temp->next = first;
