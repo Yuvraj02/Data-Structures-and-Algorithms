@@ -104,8 +104,6 @@ Node *clone(Node* &head){
             original = original->next;
         }
         
-        
-        
         //Step 2: Add nodes of clone list in between    
         original = head;
         Node *clone = cloneHead;
@@ -120,7 +118,6 @@ Node *clone(Node* &head){
         }
         
         //Step 3 : Add random pointers
-        
         original = head;
         clone = cloneHead;
         while(original!=NULL){
