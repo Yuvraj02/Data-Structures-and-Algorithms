@@ -89,38 +89,38 @@ int main(void) {
 	return 0;
 }
 
-Node *merge(Node *first, Node *second){
-
-    Node *dummy = new Node (-1);
-    Node *ans = dummy;
-
-    while(first!=NULL && second!=NULL){
-
+Node *merge (Node *first, Node* second){
+        if(first==NULL)
+            return second;
+        if(second==NULL)
+            return first;
+            
+        Node *temp = new Node(-1);
+        Node *ans = temp;
+        
+        while(first!=NULL && second!=NULL){
             if(first->data < second->data){
-                dummy->bottom = first;
+                temp->bottom = first;
                 first = first->bottom;
             }else{
-                dummy->bottom = second;
+                temp->bottom = second;
                 second = second->bottom;
             }
-            dummy = dummy->bottom;
-    }
-
-    if(first){
-        dummy->bottom = first;
-    }else{
-        dummy->bottom = second;
-    }
-
-    return ans->bottom;
+             temp = temp->bottom;
+        }
+        
+        if(first) temp->bottom = first;
+        if(second) temp->bottom = second;
+        
+        return ans->bottom;
 }
     
 Node *flatten(Node *root)
 {
    // Your code here
-    if(root==NULL || root->next==NULL)
-        return root;
-
-    return merge(root,flatten(root->next));
+   if(root==NULL || root->next==NULL)
+    return root;
+    
+    return merge(root, flatten(root->next));
 }
 
