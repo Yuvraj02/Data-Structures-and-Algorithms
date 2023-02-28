@@ -144,7 +144,6 @@ void reorderList(Node* &head){
         curr1 = next1;
         curr2 = next2;
     }
-    
     printList(head);
 
 }
