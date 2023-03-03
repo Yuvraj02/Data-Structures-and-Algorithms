@@ -8,29 +8,21 @@ int main(){
 
     vector<vector<int>> A = {{0,0},{1,4}};
 
-    vector<vector<int>> finalVec;
+       vector<vector<int>> finalVec;
 
         sort(A.begin(),A.end());
 
-        int start = A[0][0],end=A[0][1];
-
-     for (int i = 1; i < A.size(); i++)
-     {
-        
-            if(end>=A[i][0]){
-              start = min(start,A[i][0]);
-              end = max(end,A[i][1]);
-            }else if (A[i][1]<=start){
-              start = min(start,A[i][0]);
-              end = max(end,A[i][1]);
-            }else{
-                finalVec.push_back({start,end});
-                start=A[i][0];
-                end=A[i][1];
+        int interval1 = 0;
+        for (int i = 1; i < A.size(); i++)
+            {
+                if(A[interval1][1]>=A[i][0]){
+                    A[interval1][1] = max(A[interval1][1],A[i][1]);
+                }else{
+                    finalVec.push_back({A[interval1][0],A[interval1][1]});
+                    interval1=i;
             }
-
      }
-    finalVec.push_back({start,end});
+    finalVec.push_back({A[interval1][0],A[interval1][1]});
 
     for (int i = 0; i < finalVec.size(); i++)
     {
