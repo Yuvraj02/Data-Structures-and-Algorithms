@@ -3,6 +3,31 @@
 #include <queue>
 using namespace std;
 
+
+//Optimized Approach , Time : O(N), Space O(1)
+vector<long long> printFirst(vector<int> A, int N, int K){
+    
+    int firstNegativeIndex = 0;
+    vector<long long> ans;
+    
+    for(int i = K-1; i<N;i++){
+        
+        //Skip the Positives nums or nums out of window
+        //(firstNegativeIndex <= i-k) means, if the last negative element is out of the window
+        while(firstNegativeIndex < i && ((firstNegativeIndex <= i-K) || A[firstNegativeIndex] >=0))
+            firstNegativeIndex++;
+            
+            if(A[firstNegativeIndex] <= 0){
+                ans.push_back(A[firstNegativeIndex]);
+            }else{
+                ans.push_back(0);
+            }
+    }
+
+    return ans;
+}
+
+
 vector<long long> printFirstNegativeInteger(long long int A[], long long int N, long long int K) {
 
     queue<int> q;
