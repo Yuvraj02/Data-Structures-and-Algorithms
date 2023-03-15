@@ -19,15 +19,16 @@ int isStackPermutation(int N,vector<int> &A,vector<int> &B){
         if(s.empty() && j>=B.size())
             return true;
         else
-            return false;
-        
+            return false;   
     }
+
+
 
 int main(){
 
     int N = 3;
     vector<int> A = {1,2,3};
-    vector<int> B = {1,2,3};
+    vector<int> B = {2,1,3};
 
     cout<<isStackPermutation(N,A,B);
     return 0;
