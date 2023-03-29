@@ -7,17 +7,14 @@ int MinSquares(int n,vector<int> &dp)
 {
     if(n==0)
         return 0;
-    if(n<0)
-        return INT32_MIN;
+   
 
     if(dp[n]!=INT32_MAX)
         return dp[n];
     
-    for (int i = 1; i <=n; i++)
+    for (int i = 1; i*i<=n; i++)
     {
         int ans = MinSquares(n-(i*i),dp);
-
-        if(ans!=INT32_MIN)
             dp[n] = min(dp[n],ans+1);
     }
     
@@ -33,7 +30,7 @@ int main(){
 
     for (int i = 1; i <= N; i++)
     {
-        for(int j = 1; j<=i;j++){
+        for(int j = 1; j*j<=i;j++){
             if(i-(j*j) >=0 ){
                 dp[i] = min(dp[i], dp[i-(j*j)]+1);
             }
