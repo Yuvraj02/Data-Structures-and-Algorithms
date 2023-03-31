@@ -3,30 +3,27 @@
 #include <algorithm>
 using namespace std;
 
+int solve(int index, int n, vector<int> &days, vector<int> &cost,vector<int> &dp){
+    if(index>=n)
+        return 0;
 
-//DP : Recursion + Memoization
+    if(dp[index]!=-1)
+        return dp[index];
 
-// int solve(int index, int n, vector<int> &days, vector<int> &cost,vector<int> &dp){
-//     if(index>=n)
-//         return 0;
+    //Solve for Option 1-> 1 Day pass
+    int option1 = cost[0] + solve(index+1, n, days,cost,dp);
 
-//     if(dp[index]!=-1)
-//         return dp[index];
-
-//     //Solve for Option 1-> 1 Day pass
-//     int option1 = cost[0] + solve(index+1, n, days,cost,dp);
-
-//     //Solve for option 2 -> 7 Day Pass
-//     int i;
-//     for(i=index; i<n && days[i] < days[index]+7 ; i++);
-//     int option2 = cost[1] + solve(i,n,days,cost,dp);
+    //Solve for option 2 -> 7 Day Pass
+    int i;
+    for(i=index; i<n && days[i] < days[index]+7 ; i++);
+    int option2 = cost[1] + solve(i,n,days,cost,dp);
     
-//     //Solve for option 3 -> 30 Day Pass
-//     for(i = index; i<n && days[i] < days[index]+30 ; i++);
-//     int option3 = cost[2] + solve(i,n,days,cost,dp);
+    //Solve for option 3 -> 30 Day Pass
+    for(i = index; i<n && days[i] < days[index]+30 ; i++);
+    int option3 = cost[2] + solve(i,n,days,cost,dp);
 
-//     return dp[index] = min({option1,option2,option3});
-// }
+    return dp[index] = min({option1,option2,option3});
+}
 
 int minimumCoins(int n, vector<int> days, vector<int> cost)
 {  
