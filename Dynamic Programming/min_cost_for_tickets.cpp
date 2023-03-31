@@ -25,10 +25,30 @@ int solve(int index, int n, vector<int> &days, vector<int> &cost,vector<int> &dp
     return dp[index] = min({option1,option2,option3});
 }
 
+//Tabulation
+
 int minimumCoins(int n, vector<int> days, vector<int> cost)
 {  
     vector<int> dp(days[n-1]+1, -1);
-    return solve(0,n,days,cost,dp);
+
+    dp[n] = 0;
+
+    for(int index = n-1 ;index>=0;index--){
+        int option1 = cost[0] + dp[index+1];
+
+        int i;
+        for(i = index; i<n && days[i] < days[index]+7;i++);
+        int option2 = cost[1] + dp[i];
+
+        for(i = index; i<n && days[i] < days[index]+30 ; i++);
+        int option3 = cost[2] + dp[i];
+
+        dp[index]=min({option1,option2,option3});
+    }
+
+    //return solve(0,n,days,cost,dp);
+
+    return dp[0];
 }
 
 int main(){
