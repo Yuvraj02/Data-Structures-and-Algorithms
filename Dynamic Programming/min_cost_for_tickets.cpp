@@ -1,7 +1,37 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <queue>
+#include <utility>
 using namespace std;
+
+
+int main(){
+    vector<int> days = {2,5};
+    vector<int> cost = {1,4,25};
+    int n = cost.size();
+    
+    int ans = 0;
+
+    queue<pair<int,int>> month;
+    queue<pair<int,int>> week;
+
+    for (int current_day : days)
+    {
+        while (!month.empty() && current_day >= month.front().first + 30)
+            month.pop();
+        while(!week.empty() && current_day >= week.front().first + 7)
+            week.pop();
+
+        week.push(make_pair(current_day, ans+cost[1]));
+        month.push(make_pair(current_day, ans+cost[2]));
+      
+    ans = min({ans+cost[0], month.front().second,week.front().second});
+    }
+    cout<<ans;
+
+    return 0;
+}
 
 int solve(int index, int n, vector<int> &days, vector<int> &cost,vector<int> &dp){
     if(index>=n)
@@ -49,12 +79,4 @@ int minimumCoins(int n, vector<int> days, vector<int> cost)
     //return solve(0,n,days,cost,dp);
 
     return dp[0];
-}
-
-int main(){
-    vector<int> days = {1,3,4,5,7,8,10};
-    vector<int> cost = {2,7,20};
-    int n = cost.size();
-    cout<<minimumCoins(n,days,cost);
-    return 0;
 }
