@@ -30,6 +30,32 @@ int maxSquare(int n, int m, vector<vector<int>> mat){
     int maxSquare = INT32_MIN;
     solve(mat,0,0,maxSquare);
     return maxSquare;
+    vector<vector<int>> dp(n+1,vector<int>(m+1, 0));
+
+    dp[n][m] = 0;
+    int maxSquare = INT32_MIN;
+
+    for(int i=n-1;i>=0;i--){
+        for(int j = m-1;j>=0;j--){
+             //Check for right side
+        int right = dp[i][j+1];
+            //Check for diagonal right
+        int diagRight = dp[i+1][j+1];
+            //Check for down
+        int down = dp[i+1][j];
+
+        if(mat[i][j]==1){
+            dp[i][j] = 1 + min({right,diagRight,down});
+            //Store answer at each step
+            maxSquare = max(maxSquare,dp[i][j]);
+            
+        }else{
+            dp[i][j]=0;
+        }
+
+        }
+    }
+    return maxSquare;
 
 }
 
