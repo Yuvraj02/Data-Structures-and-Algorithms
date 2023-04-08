@@ -25,39 +25,67 @@ int solve(vector<vector<int>> &A, int i, int j,int &maxSquare){
     }
 }
 
-int maxSquare(int n, int m, vector<vector<int>> mat){
-        // code here
-    int maxSquare = INT32_MIN;
-    solve(mat,0,0,maxSquare);
-    return maxSquare;
-    vector<vector<int>> dp(n+1,vector<int>(m+1, 0));
+// int maxSquare(int n, int m, vector<vector<int>> mat){
+//         // code here
+//     int maxSquare = INT32_MIN;
+//     solve(mat,0,0,maxSquare);
+//     return maxSquare;
+//     vector<vector<int>> dp(n+1,vector<int>(m+1, 0));
 
-    dp[n][m] = 0;
-    int maxSquare = INT32_MIN;
+//     dp[n][m] = 0;
+//     int maxSquare = INT32_MIN;
 
-    for(int i=n-1;i>=0;i--){
+//     for(int i=n-1;i>=0;i--){
+//         for(int j = m-1;j>=0;j--){
+//              //Check for right side
+//         int right = dp[i][j+1];
+//             //Check for diagonal right
+//         int diagRight = dp[i+1][j+1];
+//             //Check for down
+//         int down = dp[i+1][j];
+
+//         if(mat[i][j]==1){
+//             dp[i][j] = 1 + min({right,diagRight,down});
+//             //Store answer at each step
+//             maxSquare = max(maxSquare,dp[i][j]);
+            
+//         }else{
+//             dp[i][j]=0;
+//         }
+
+//         }
+//     }
+//     return maxSquare;
+
+// }
+
+ int maxSquare(int n, int m, vector<vector<int>> mat){
+
+    vector<int> curr(m+1,0);
+    vector<int> next(m+1,0);
+    int maxSquare = INT32_MIN;
+     for(int i=n-1;i>=0;i--){
         for(int j = m-1;j>=0;j--){
              //Check for right side
-        int right = dp[i][j+1];
+        int right = curr[j+1];
             //Check for diagonal right
-        int diagRight = dp[i+1][j+1];
+        int diagRight = next[j+1];
             //Check for down
-        int down = dp[i+1][j];
+        int down = next[j];
 
         if(mat[i][j]==1){
-            dp[i][j] = 1 + min({right,diagRight,down});
+            curr[j] = 1 + min({right,diagRight,down});
             //Store answer at each step
-            maxSquare = max(maxSquare,dp[i][j]);
+            maxSquare = max(maxSquare,curr[j]);
             
         }else{
-            dp[i][j]=0;
+            curr[j]=0;
         }
-
+            next = curr;
         }
     }
-    return maxSquare;
-
-}
+    return next[0];
+ }
 
 int main(){
 
