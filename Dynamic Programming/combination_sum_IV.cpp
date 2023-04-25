@@ -3,8 +3,6 @@
 
 using namespace std;
 
-
-
 int findWays(vector<int> &num, int tar)
 {
     vector<int> dp(tar+1,0);
