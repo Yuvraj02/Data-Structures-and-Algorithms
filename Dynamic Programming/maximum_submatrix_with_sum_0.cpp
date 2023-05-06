@@ -30,7 +30,6 @@ int zeroSum(vector<int> A, int &startingColumn, int &endingColumn){
         }
 
     }
-    cout<<maxLen<<endl;
     return maxLen;
 }
 
