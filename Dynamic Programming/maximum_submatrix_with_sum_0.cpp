@@ -1,102 +1,73 @@
-#include <iosream>
-#incl
-
+#include <iostream>
+#include <vector>
+#include <unordered_map>
 using namespace std;
 
-#define endl "\n"
+int zeroSum(vector<int> A, int &startingColumn, int &endingColumn){
 
-pair<int,int> subsum(vector<int> arr,int n)
-{
-        unordered_map<int,int> mp;
-        int maxlen=0;
-        int sum=0;
-        int ending_index=-1;
-        for(int i=0;i<n;++i)
-        {
-            sum+=arr[i];
-            if(arr[i]==0)
-                maxlen=max(maxlen,1);
-                
-            if(sum==0)
-                { maxlen=max(maxlen,i+1);
-                  ending_index=i;
-                }
-                
-            if(mp.find(sum)!=mp.end())
-               { if(maxlen<i-(int)mp[sum])
-                   {
-                       maxlen=i-mp[sum];
-                       ending_index=i;
-                   }
-               }
-            
-            else   
-              mp[sum]=i;
+    int sum = 0;
+    int maxLen = 0;
+
+    unordered_map<int,int> mapp;
+
+    for(int i=0;i<A.size();i++){
+        sum+=A[i];
+
+        if(sum==0){
+            startingColumn = 0;
+            endingColumn = i;
+            maxLen = i+1;
         }
-        
-        pair<int,int> p{maxlen,ending_index};
-        return p;
+
+        if(mapp.find(sum) == mapp.end()){
+            mapp[sum] = i;
+        }else{
+            if(i - mapp[sum] + 1 > maxLen){
+                maxLen = i - mapp[sum] + 1;
+                startingColumn = mapp[sum];
+                endingColumn = i;
+            }
+        }
+
+    }
+
+    return maxLen;
 }
 
-int main()
-{
-        int r,c;
-        int starting_row=0;
-        int ending_row=0;
-        int starting_col=0;
-        int ending_col=0;
-        cin>>r>>c;
-        vector<vector<int> > mat(r,vector<int>(c));
-        
-        for(int i=0;i<r;i++)
-        {
-            for(int j=0;j<c;j++)
-            {
-                cin>>mat[i][j];
+int main(){
 
-            }
-        }
-        
-        int final_length=INT_MIN;
-        for(int i=0;i<r;i++)
-        {
-            vector<int> current_array(c);
-            for(int j=i;j<r;j++)
-            {
-                for(int col=0;col<c;col++)
-                {
-                    current_array[col] += mat[j][col]; 
-                }
-                
-                pair<int,int> p=subsum(current_array,c);
-                //cout<<p.first<<" "<<p.second<<endl;
-                // old area < new area 
-                // area= length * breadth
-                if(final_length*(ending_row-starting_row+1)<(p.first*(j-i+1)))
-                {
-                    final_length=p.first;
-                    starting_row=i;
-                    ending_row=j;
-                    starting_col=p.second-p.first+1;
-                    ending_col=p.second;
-                }
-            }
-        }
-        
-        int final_area=final_length*(ending_row-starting_row+1);
-        cout<<final_area<<endl;
-        cout<<starting_row<<" "<<ending_row<<" "<<starting_col<<" "<<ending_col<<endl;
-        
-        cout<<"Answer matrix is "<<endl;
-        for(int i=starting_row;i<=ending_row;++i)
-        {
-            for(int j=starting_col;j<=ending_col;++j)
-            {
-                cout<<mat[i][j]<<" ";
-            }
-            
-            cout<<endl;
-        }
+    vector<vector<int>> A = {{1, 2, 3},
+                                  {-3,-2,-1},
+                                  {1, 7, 5}};
+
+    int final_up = 0,final_down = 0, final_right = 0, final_left = 0;
+
+    int startingColumn = 0,endingColumn =0;
     
-     return 0;
+    int R = A.size();
+    int C = A[0].size();
+    int maxLen = 0;
+
+    for(int row1=0;row1<R;row1++){
+        vector<int> adder (C,0);
+        for(int row2=0;row2<R;row2++){
+
+            for(int i=0;i<C;i++)
+                adder[i] += A[row2][i];
+
+            int currLen = zeroSum(adder,startingColumn,endingColumn);
+
+            if(currLen > maxLen){
+                final_up = row1;
+                final_down = row2;
+                final_left = startingColumn;
+                final_right = endingColumn;
+                maxLen = currLen;
+            }
+
+        }
+    }
+
+
+    return 0;
 }
