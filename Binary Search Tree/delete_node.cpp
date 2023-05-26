@@ -68,7 +68,7 @@ Node* deleteNode(Node *root,int x){
             //Copy the min value to the current node
             root->data = min;
 
-            root->right = deleteNode(root->right,m);
+            root->right = deleteNode(root->right,min);
             
             return root;
 
