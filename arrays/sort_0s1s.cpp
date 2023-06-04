@@ -18,8 +18,7 @@ int main(){
             swap(a[i],a[j]);
             i++;
             j--;
-        }
-        
+        } 
     }
     
 for (auto i : a)
