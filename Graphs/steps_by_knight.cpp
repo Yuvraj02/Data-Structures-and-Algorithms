@@ -3,7 +3,6 @@
 #include <queue>
 
 using namespace std;
-
 class cell{
     public:
         int x;
