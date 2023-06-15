@@ -8,7 +8,6 @@ using namespace std;
 void dfs(int node, int parent, unordered_map<int,list<int>> &adj, vector<int> &disc,vector<int> &low, 
          vector<bool> &visited,int &timer,vector<int> &ans)
 {
-
     visited[node] = true;
 
     disc[node] = low[node] = timer++;
