@@ -50,7 +50,7 @@ bool isPossible(int n, vector<pair<int, int> >& prerequisites) {
 	   
 	   
 	    for(auto i : inDegree)
-	        if(i==1)
+	        if(i>=1)
 	            return false;
 	   return true;
 	}
