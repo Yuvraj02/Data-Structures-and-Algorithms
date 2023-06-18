@@ -35,12 +35,23 @@ vector<int> getNextSmallerElems(vector<int> a){
     return next;
 }
 
+void print(vector<int> &arr){
+
+    for(auto i : arr)
+        cout<<i<<" ";
+    
+    cout<<endl;
+}
+
 int main(){
 
-    vector<int> a = {2,4};
+    vector<int> a = {2,1,5,6,2,3};
 
     vector<int> prevSmallerElem = getPrevSmallerElems(a);
     vector<int> nextSmallerElem = getNextSmallerElems(a);
+    
+    print(nextSmallerElem);
+    print(prevSmallerElem);
 
     int length, breadth, maxArea = INT32_MIN;
     int newArea = INT32_MIN;
