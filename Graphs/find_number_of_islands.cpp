@@ -36,7 +36,6 @@
         int X[] = {0, 1, 1, 1, 0, -1, -1, -1};
         int Y[] = {1, 1, 0,-1,-1, -1,  0,  1};
         
-        
         vector<vector<char>>&helperGrid = grid;
         
         vector<vector<bool>> visited(n,vector<bool>(m,false));
