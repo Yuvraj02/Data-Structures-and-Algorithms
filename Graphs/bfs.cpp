@@ -26,7 +26,6 @@ void bfs(vector<int> &ans, unordered_map<int,list<int>> &adj, unordered_map<int,
                 q.push(i);
                 visited[i] = true;
             }
-
         }
     }
 }
