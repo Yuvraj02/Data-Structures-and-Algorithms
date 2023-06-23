@@ -5,7 +5,6 @@ using namespace std;
 
 int bellmonFord(int n, int m, int src, int dest, vector<vector<int>> &edges) {
     // Write your code here.
-
     vector<int> dist(n+1,1e9);
 
     dist[src] = 0;
