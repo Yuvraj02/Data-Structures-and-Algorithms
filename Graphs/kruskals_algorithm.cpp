@@ -52,7 +52,6 @@ int minimumSpanningTree(vector<vector<int>>& edges, int n){
 
     //Traverse through each edge and check if it's in the component or not
     //If not, then merge these two edges using union set function and add there weight
-
     int minWeight = 0;
 
     for(int i = 0; i<edges.size();i++){
