@@ -22,7 +22,6 @@ bool dfsCycleDetect(int node, int parent, unordered_map<int,list<int>> &adj, uno
 
     }
     return false;
-
 }
 
 int main(){
