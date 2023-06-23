@@ -21,7 +21,6 @@ void dfs(vector<int> &component, unordered_map<int,list<int>> &adj, unordered_ma
 vector<vector<int>> depthFirstSearch(int V, int E, vector<vector<int>> &edges)
 {
     // Write your code here
-    
     unordered_map<int,list<int>> adj;
 
     for(int i = 0; i < E; i++){
