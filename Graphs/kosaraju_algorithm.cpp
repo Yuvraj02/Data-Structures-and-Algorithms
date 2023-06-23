@@ -49,7 +49,7 @@ int stronglyConnectedComponents(int v, vector<vector<int>> &edges)
 	stack<int> s;
 	unordered_map<int,bool> visited;
 
-	//Topological
+	//Get Topological Sort
 	for(int i = 0; i<v;i++){
 			if(!visited[i])
 				dfs(i, adj, visited, s);
@@ -66,7 +66,7 @@ int stronglyConnectedComponents(int v, vector<vector<int>> &edges)
 		}
 	}
 
-	//Dfs call using above ordering
+	//Dfs call on the elements in topological ordering but graph is now transposed
 	int count = 0;
 	while(!s.empty()){
 		int top = s.top();
