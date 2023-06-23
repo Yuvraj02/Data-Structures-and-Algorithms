@@ -55,7 +55,6 @@ vector<pair<pair<int,int>, int>> prims(vector<pair<pair<int,int>,int>> &edges, i
                 key[node] = weight;
             }
         }
-
     }
 
     vector<pair<pair<int,int>, int>> result;
