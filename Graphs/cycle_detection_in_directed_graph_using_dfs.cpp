@@ -29,7 +29,6 @@ bool dfs(int node, unordered_map<int,list<int>> &adj, unordered_map<int,bool> &v
 
 }
 
-
 int detectCycleInDirectedGraph(int n, vector < pair < int, int >> & edges) {
   // Write your code here.
   unordered_map<int,list<int>> adj;
