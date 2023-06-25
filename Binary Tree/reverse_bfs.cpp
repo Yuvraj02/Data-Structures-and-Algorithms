@@ -3,7 +3,6 @@
 #include <queue>
 
 using namespace std;
-
 class Node{
     public:
         Node *left;
@@ -68,7 +67,7 @@ int main(){
             1
            / \
           2   3
-          
+
      Print : 3 2 1     
     */
     cout<<"\n";
