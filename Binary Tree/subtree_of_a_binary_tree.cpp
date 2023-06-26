@@ -24,8 +24,7 @@ struct TreeNode {
             
         return (root1->val==root2->val
                 && isIdentical(root1->left,root2->left)
-                && isIdentical(root1->right,root2->right));
-        
+                && isIdentical(root1->right,root2->right));    
     }
 
     bool isSubtree(TreeNode* root, TreeNode* subRoot) {
