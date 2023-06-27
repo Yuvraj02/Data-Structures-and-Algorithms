@@ -46,5 +46,4 @@ struct Node
         map<int,int> nodeIndex;
         findPosition(in,nodeIndex,n);
         return solve(preOrderIndex,in,pre,0,n-1,n,nodeIndex);
-        
     }
