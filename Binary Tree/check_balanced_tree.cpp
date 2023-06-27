@@ -31,29 +31,31 @@ struct Node
         
     }
     
-   pair<bool,int> checkBalanceFast(Node *root){
+    pair<bool, int> checkBalanceFast(Node *root){
+        
+        if(root==NULL)
+            return {true,0};
             
-            if(root==NULL)
-                return {true,0};
+        pair<bool,int> left   = checkBalanceFast(root->left);
+        pair<bool,int> right  = checkBalanceFast(root->right);
+        
+        int leftHeight = left.second;
+        int rightHeight = right.second;
+        
+        int diff = abs(leftHeight-rightHeight);
+        
+        pair<bool,int> ans;
+        
+        //Set current height
+        ans.second = max(left.second,right.second) + 1;
+        
+        if(left.first && right.first && diff<=1){
+            ans.first = true;
             
-            pair<bool,int> left = checkBalanceFast(root->left);
-            
-            pair<bool,int> right = checkBalanceFast(root->right);
-            
-            bool leftTree = left.first;
-            bool rightTree = right.first;
-            
-            bool diff = abs(left.second - right.second) <=1;
-            
-            pair<bool,int> ans;
-            ans.second = max(left.second,right.second) + 1;
-            
-            if(leftTree && rightTree && diff){
-                ans.first = true;
-            }else{
-                ans.first = false;
-            }
-            return ans;
+        }else{
+            ans.second = false;
+        }
+        return ans;
     }
     
     
