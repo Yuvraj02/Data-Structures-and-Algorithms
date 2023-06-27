@@ -50,7 +50,6 @@ struct Node
         ans.second = max(leftDiam.second,rightDiam.second) + 1;
         
         return ans;
-        
     }
     
     int solve(Node* root){
