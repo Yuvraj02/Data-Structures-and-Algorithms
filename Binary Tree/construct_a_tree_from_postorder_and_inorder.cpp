@@ -23,7 +23,6 @@ void findPosition(int in[],map<int,int> &nodeIndex,int n){
             nodeIndex[in[i]] = i;
         }
         
-
     }
 
     int findPos(int element, int in[], int inorderStart,int inorderEnd){
