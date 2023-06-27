@@ -91,8 +91,7 @@ Node *buildTree(Node *root){
                 if(front->right)
                     q.push(front->right);
             }
-            
-            
+             
             for(auto i : ans){
                 res.push_back(i);
             }
