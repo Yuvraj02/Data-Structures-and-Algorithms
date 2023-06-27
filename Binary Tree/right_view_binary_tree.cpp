@@ -15,7 +15,6 @@ struct Node
         if(root==NULL)
             return ;
             
-        
         mapp[level] = root->data;
         
         traverse(root->left, level+1,mapp);
