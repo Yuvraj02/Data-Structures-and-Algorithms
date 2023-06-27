@@ -15,7 +15,6 @@ struct Node
         if(root==NULL)
             return ;
             
-        
         if(!mapp.count(level))
             mapp[level] = root->data;
         
