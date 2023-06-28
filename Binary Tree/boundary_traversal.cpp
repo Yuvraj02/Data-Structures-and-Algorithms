@@ -21,8 +21,7 @@ void leftTraversal(Node *root, vector<int> &ans){
             
         else{
             leftTraversal(root->right,ans);
-        }
-        
+        } 
     }
     
     void leafTraversal(Node *root, vector<int> &ans){
