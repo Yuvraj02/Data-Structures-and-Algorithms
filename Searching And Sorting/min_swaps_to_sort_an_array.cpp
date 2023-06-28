@@ -13,7 +13,6 @@ int main(){
         then check which index is at incorrect position and count such indices.
         If the indices are in correct position then we simply move forward
     */
-
     vector<int> nums = {10,19,6,3,5};
     //Step 1 : Create a pair of Values with their current indices
     
