@@ -20,6 +20,53 @@ class Node{
 Node* buildTree(int start, int end, string &str);
 int getMidIndex(int start, int end, string &str);
 
+//Optimized Approach
+Node *buildOptimized(int &start, string &str){
+    
+    if(start>=str.size() || str.size()==0)
+        return NULL;
+
+    //Extract the number from string
+    int num = 0;
+    
+    while(start < str.size() && isdigit(str[start])){
+        num = num*10 + str[start] - '0';
+        start++;
+    }
+    
+    Node *root = NULL;
+    //If num is not zero then only create a node, otherwise it means that the brackets were empty
+    if(num>0)
+        root = new Node(num);
+
+    //If there's an opening bracket, then we will add left node first
+    if(start<str.size() && str[start]=='('){
+        //Increment start first for next node
+        start++;
+        root->left = buildOptimized(start,str);
+    }
+    //If there's a closing bracket, that means this is the end of left node, so return the node
+    if(start<str.size() && str[start] == ')'){
+        start++;
+        return root;
+    }
+
+    //Now when we are done with left node, it's time for right node
+    if(start<str.size() && str[start] == '('){
+        start++;
+        root->right = buildOptimized(start,str);
+    }
+
+    //If there's a closing bracket , then it means this is the end of right node so return the node
+    if(start<str.size() && str[start]==')'){
+        start++;
+        return root;
+    }
+
+    //Finally return root
+    return root;
+}
+
 void preorder(Node *root){
 
     if(root==NULL)
@@ -52,6 +99,9 @@ int main(){
         Step 3 : Every time we create a subtree the range is from start+1 to end-1;
     */
    // Node * root = buildTree(0,str.size()-1,str);
+    int start = 0;
+    Node *root = buildOptimized(start,str);
+    
     preorder(root);
 
     return 0;
