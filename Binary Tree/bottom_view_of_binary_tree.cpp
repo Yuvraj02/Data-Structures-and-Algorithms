@@ -13,32 +13,36 @@ struct Node
 
   vector <int> bottomView(Node *root) {
         // Your Code Here
-        queue<pair<Node*, int> > q;
+        pair<Node*,int> p1 = {root,0};
+        
+        queue<pair<Node*, int>> q;
+        
+        q.push(p1);
         
         map<int,int> mapp;
         
-        q.push({root,0});
-        
         while(!q.empty()){
             
-            pair<Node*, int> temp = q.front();
-            Node *front = temp.first;
-            int hd = temp.second;
-            mapp[hd] = front->data;
+            pair<Node*,int> front = q.front();
             q.pop();
             
-            if(front->left)
-                q.push({front->left,hd-1});
-                
-            if(front->right)
-                q.push({front->right,hd+1});
+            Node *node = front.first;
+            int currLevel = front.second;
             
+            mapp[currLevel] = node->data;
+            //If we go left side then we measure level in negative scale
+            if(node->left){
+                q.push({node->left, currLevel-1});
+            }            
+            
+            if(node->right){
+                q.push({node->right,currLevel+1});
+            }
         }
+        
         vector<int> ans;
-        auto it = mapp.begin();
-        while(it!=mapp.end()){
-            ans.push_back(it->second);
-            it++;
+        for(auto i : mapp){
+            ans.push_back(i.second);
         }
         return ans;
     }
