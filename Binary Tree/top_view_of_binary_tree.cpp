@@ -14,36 +14,36 @@ struct Node
   vector<int> topView(Node *root)
     {
         //Your code here
-        queue<pair<Node*, int>> q;
-        
-        map<int, int> mapp;
-        
-        q.push({root,0});
+        pair<Node*, int> level = {root, 0};
+        queue<pair<Node*,int>> q;
+        map<int,int> mapp;
+       
+        q.push(level);
         
         while(!q.empty()){
             
-            pair<Node*, int> temp = q.front();
-            Node *front = temp.first;
-            int hd = temp.second;
+            pair<Node*, int> front = q.front();
+            
             q.pop();
             
-            if(!mapp.count(hd))
-                mapp[hd] = front->data;
-                
-            if(front->left)
-                q.push({front->left,hd-1});
-                
-            if(front->right)
-                q.push({front->right,hd+1});
+            //{Node, level}
+            Node *node = front.first;
+            int currLevel = front.second;
+            
+            if(mapp[currLevel] == NULL)
+                mapp[currLevel] = node->data;
+            
+            if(node->left){
+                q.push({node->left, currLevel-1});
+            }
+            if(node->right){
+                q.push({node->right,currLevel+1});
+            }
             
         }
-        
         vector<int> ans;
-        auto it = mapp.begin();
-        while(it!=mapp.end()){
-            ans.push_back(it->second);
-            it++;
-        }
-        
+        for(auto i : mapp)
+            ans.push_back(i.second);
+            
         return ans;
     }
