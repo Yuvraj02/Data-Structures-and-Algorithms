@@ -52,6 +52,7 @@ void leftTraversal(Node *root, vector<int> &ans){
             traverseRight(root->left,ans);
         }
         
+        //While traversing right push in the end because we are coming in reverse
         ans.push_back(root->data);
         
     }
