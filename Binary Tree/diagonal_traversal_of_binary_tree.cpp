@@ -10,38 +10,29 @@ struct Node
     Node* left, * right;
 }; 
 
-void traverseDiagonal(Node *root, int dd, map<int,vector<int>>& mapp){
+void diagTraversal(Node *root, map<int,vector<int>> &mapp, int level){
     
     if(root==NULL)
         return;
-        
-    mapp[dd].push_back(root->data);
     
-    traverseDiagonal(root->left,dd+1,mapp);
+    mapp[level].push_back(root->data);
     
-    traverseDiagonal(root->right,dd,mapp);
-    
+    diagTraversal(root->left,mapp,level+1);
+    diagTraversal(root->right,mapp,level);
 }
- 
 
 vector<int> diagonal(Node *root)
 {
    // your code here
-
-    map<int, vector<int> > mapp;
+    map<int,vector<int>> mapp;  
+    
+    diagTraversal(root,mapp,0);
     
     vector<int> ans;
     
-    traverseDiagonal(root,0,mapp);
-    
-    for(auto vect = mapp.begin();vect!=mapp.end();vect++){
-        
-        for(auto i : vect->second){
-            ans.push_back(i);
-        }
-        
+    for(auto i : mapp){
+        for(auto j : i.second)
+            ans.push_back(j);
     }
-   
    return ans;
-   
 }
