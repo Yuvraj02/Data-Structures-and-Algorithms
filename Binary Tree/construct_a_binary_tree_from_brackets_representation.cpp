@@ -20,6 +20,7 @@ class Node{
 Node* buildTree(int start, int end, string &str);
 int getMidIndex(int start, int end, string &str);
 
+
 //Optimized Approach
 Node *buildOptimized(int &start, string &str){
     
@@ -28,7 +29,7 @@ Node *buildOptimized(int &start, string &str){
 
     //Extract the number from string
     int num = 0;
-    
+
     while(start < str.size() && isdigit(str[start])){
         num = num*10 + str[start] - '0';
         start++;
