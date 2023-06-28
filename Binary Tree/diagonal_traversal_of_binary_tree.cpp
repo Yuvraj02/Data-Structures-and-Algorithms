@@ -27,7 +27,7 @@ vector<int> diagonal(Node *root)
     map<int,vector<int>> mapp;  
     
     diagTraversal(root,mapp,0);
-    
+ 
     vector<int> ans;
     
     for(auto i : mapp){
@@ -35,4 +35,5 @@ vector<int> diagonal(Node *root)
             ans.push_back(j);
     }
    return ans;
+   
 }
