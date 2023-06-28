@@ -16,7 +16,6 @@ struct Node
         pair<Node*,int> p1 = {root,0};
         
         queue<pair<Node*, int>> q;
-        
         q.push(p1);
         
         map<int,int> mapp;
