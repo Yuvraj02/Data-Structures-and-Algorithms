@@ -23,7 +23,6 @@ struct Node
         while(!q.empty()){
             
             pair<Node*, int> front = q.front();
-            
             q.pop();
             
             //{Node, level}
