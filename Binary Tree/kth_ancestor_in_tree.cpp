@@ -24,18 +24,15 @@ Node *solve(Node *root, int &k, int node){
     
      if(left!=NULL && right == NULL){
         k--;
-        if(k<=0){
-            
-            k=INT32_MAX;
-            
+        if(k==0){
+        
             return root;
         }
         return left;
     }else if(left==NULL && right !=NULL){
         k--;
-        if(k<=0){
-            
-            k = INT32_MAX;
+        if(k==0){
+       
             return root;
         }
         return right;
