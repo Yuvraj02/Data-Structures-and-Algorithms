@@ -69,7 +69,7 @@ class heap {
         }
 };
 
-void heapify(int arr[], int size, int &i){
+void heapify(int arr[], int size, int i){
 
     int currIndex = i;
     int left = 2*i;
@@ -88,6 +88,19 @@ void heapify(int arr[], int size, int &i){
         //Check if further heapification needed
         heapify(arr,size,currIndex);
     }
+}
+
+void heapsort(int arr[], int size){
+    
+    while(size>1){
+        //Step 1: Swap root element with last element
+        swap(arr[1],arr[size]);
+        //Decrement size
+        size--;
+        //Step 2: Heapify the root element to it's correct position
+        heapify(arr,size,1);
+    }
+
 }
 
 int main(){
@@ -112,5 +125,12 @@ int main(){
     for(int i = 1; i<=n;i++){
         cout<<arr[i]<<" ";
     }
+    cout<<endl;
+    heapsort(arr,n);
+
+    for(int i = 1; i<=n;i++){
+        cout<<arr[i]<<" ";
+    }
+
     return 0;
 }
