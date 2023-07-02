@@ -39,6 +39,7 @@ TreeNode<int>* LCAinaBST(TreeNode<int>* root, TreeNode<int>* p, TreeNode<int>* q
         
         return root;
 
+
     // while(root){
 
     //     if(root->data > p->data && root->data > q->data){
