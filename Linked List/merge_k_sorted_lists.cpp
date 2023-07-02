@@ -34,7 +34,6 @@ void printList(Node *head){
 }
 
 //Time : O(N log K), Space : O(1)
-
 Node* mergeKListsOptimal(vector<Node*>& lists, int start, int end){
     if(start>=end)   
         return lists[start];
