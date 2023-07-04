@@ -13,29 +13,33 @@ class Node {
     }
 };
 
-int solve(Node* root, int k, int &i){
-    if(root==NULL)
-        return -1;
-
-    //Go to right
-    int right = solve(root->right, k, i);
-
-    if(right!=-1)
-        return right;
-
-    //N
-    i++;
-    if(i==k)
-        return root->data;
-
-    //L
-        return solve(root->left, k, i);
-
-}
-
-int KthLargestNumber(Node* root, int k) 
-{
-    // Write your code here.
-    int i = 0;
-    return solve(root,k,i);
-}
+ Node *inorder(Node *root, int &K, int &i){
+        
+        if(!root)
+            return root;
+            
+        //Go to right first because we are finding largest element
+        //So going right first of BST means we are traversing in reverse
+        //Hence decending order
+        Node *right = inorder(root->right,K, i);
+        
+        i++;
+        
+        if(i==K)
+            return root;
+            
+        Node *left = inorder(root->left, K, i);
+        
+        if(right!=NULL)
+            return right;
+        else
+            return left;
+        
+    }
+    
+    int kthLargest(Node *root, int K)
+    {
+        //Your code here
+        int i = 0;
+        return inorder(root,K,i)->data;
+    }
