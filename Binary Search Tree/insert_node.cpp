@@ -25,18 +25,23 @@ class Node {
         }
 };
 
-Node *insertNode(Node *root, int data){
+Node *insertNode(Node *root, int key){
 
     if(root==NULL){
-        Node *newNode = new Node(data);
+        Node *newNode = new Node(key);
         return newNode;
     }
-
-    if(data>root->data)
-        root->right = insertNode(root->right,data);
-    else
-        root->left = insertNode(root->left,data);
-
+    
+    if(root->data == key)
+        return root;
+    
+    
+    if(key < root->data){
+        root->left = insertNode(root->left, key);
+    }else{
+        root->right = insertNode(root->right,key);
+    }
+    
     return root;
 }
 
