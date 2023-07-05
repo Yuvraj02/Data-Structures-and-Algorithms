@@ -35,16 +35,12 @@ BinaryTreeNode<int> *insertNode(int &i, vector<int> &preorder,int mini, int maxi
     if(preorder[i] < mini || preorder[i] > maxi)
         return NULL;
         
-
         BinaryTreeNode<int> *newNode = new BinaryTreeNode<int>(preorder[i++]);
 
         newNode->left = insertNode(i, preorder, mini, newNode->data);
         newNode->right = insertNode(i, preorder,newNode->data, maxi);
-
         
         return newNode;
-    
-    
 }
 
 
