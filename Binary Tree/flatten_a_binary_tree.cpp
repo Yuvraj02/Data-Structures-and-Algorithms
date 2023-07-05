@@ -109,7 +109,6 @@ void preOrderTraversal(Node *root){
                 }
                 
             }
-            
         }
        // cout<<"\n";
     }
