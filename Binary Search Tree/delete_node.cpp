@@ -45,6 +45,7 @@ Node* deleteNode(Node *root,int x){
         return NULL;
 
     if(root->data==x){
+        
         //4 cases
         Node *temp = root;
         if(root->left == NULL && root->right==NULL){
