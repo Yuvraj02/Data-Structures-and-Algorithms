@@ -42,7 +42,7 @@ void inorderTraversal(TreeNode<int>* root, vector<int> &inorder){
 
 TreeNode<int>* balanceTree(int start, int end, vector<int> &inorder){
 
-    if(start>end)
+    if(start > end)
         return NULL;
     
     int mid = (start+end)/2;
