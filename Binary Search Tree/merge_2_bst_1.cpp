@@ -28,60 +28,59 @@ using namespace std;
     };
 
 
-void inorderTraversal(TreeNode<int> *root, vector<int> &inorder){
+void traverse(TreeNode<int> *root, vector<int> &inorder){
 
-    if(root==NULL)
+    if(!root)
         return;
 
-    inorderTraversal(root->left, inorder);
-
+    traverse(root->left,inorder);
     inorder.push_back(root->data);
-
-    inorderTraversal(root->right, inorder);
-
+    traverse(root->right,inorder);
+    
 }
 
-TreeNode<int> *buildTree(int start, int end, vector<int> &inorder){
+void merge(vector<int> &tree1, vector<int> &tree2, vector<int> &finalTree){
+
+    int i = 0,j=0;
+
+    while(i<tree1.size() && j<tree2.size()){
+        if(tree1[i] <= tree2[j])
+            finalTree.push_back(tree1[i++]);
+        else
+            finalTree.push_back(tree2[j++]);
+    }
+
+    //Case 1 : if tree1 elements are left
+    while(i<tree1.size())
+        finalTree.push_back(tree1[i++]);
+    
+    //case 2
+    while(j<tree2.size())
+        finalTree.push_back(tree2[j++]);
+}
+
+TreeNode<int> *buildTree(vector<int> &finalTree, int start, int end){
 
     if(start > end)
         return NULL;
 
     int mid = (start + end)/2;
-    TreeNode<int> *root = new TreeNode<int>(inorder[mid]);
-    root->left = buildTree(start, mid-1, inorder);
-    root->right = buildTree(mid+1, end, inorder);
+    TreeNode<int> *root = new TreeNode<int>(finalTree[mid]);
+    
+    root->left = buildTree(finalTree,start,mid-1);
+    root->right = buildTree(finalTree,mid+1,end);
 
     return root;
-
 }
 
 TreeNode<int> *mergeBST(TreeNode<int> *root1, TreeNode<int> *root2){
     // Write your code here.
-    vector<int> inorder1;
-    vector<int> inorder2;
+    vector<int> tree1,tree2;
+    traverse(root1,tree1);
+    traverse(root2,tree2);
+    vector<int>  finalTree;
+    merge(tree1,tree2,finalTree);
 
-    inorderTraversal(root1, inorder1);
-    inorderTraversal(root2, inorder2);
-    vector<int> finalInorder;
-    //Merge Two Sorted Arrays
+    return buildTree(finalTree,0,finalTree.size()-1);    
 
-    int i = 0,j=0;
-    while(i<inorder1.size() && j < inorder2.size()){
-
-        if(inorder1[i] <= inorder2[j]){
-            finalInorder.push_back(inorder1[i++]);
-        }else{
-            finalInorder.push_back(inorder2[j++]);
-        }
-    }
-    //Rest of the elements
-    while(i<inorder1.size()){
-        finalInorder.push_back(inorder1[i++]);
-    }
-
-    while(j<inorder2.size()){
-        finalInorder.push_back(inorder2[j++]);
-    }
-
-    return buildTree(0, finalInorder.size()-1, finalInorder);
 }
