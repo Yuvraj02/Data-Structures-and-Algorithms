@@ -60,3 +60,31 @@ return newRoot;
     //     cout<<i->data<<" ";
 
 }
+
+//Another approach
+
+void convertToLL(TreeNode<int> *curr, TreeNode<int> *&prev,TreeNode<int>* &head){
+    if(!curr)
+        return ;
+
+    convertToLL(curr->left,prev,head);
+
+    if(prev==NULL)
+        head = curr;
+    else{
+        prev->right = curr;
+        curr->left = NULL;
+    }
+    
+    prev = curr;
+    convertToLL(curr->right,prev,head);
+}
+
+TreeNode<int>* flatten(TreeNode<int>* root)
+{
+    // Write your code here
+    TreeNode<int> *head=NULL;
+    TreeNode<int> *prev = NULL;
+    convertToLL(root,prev,head);
+    return head;
+}
