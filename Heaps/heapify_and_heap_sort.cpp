@@ -122,10 +122,10 @@ int main(){
     for(int i = n/2; i>=1;i--)
         heapify(arr,n,i);
     
-    for(int i = 1; i<=n;i++){
-        cout<<arr[i]<<" ";
-    }
-    cout<<endl;
+    // for(int i = 1; i<=n;i++){
+    //     cout<<arr[i]<<" ";
+    // }
+    // cout<<endl;
     heapsort(arr,n);
 
     for(int i = 1; i<=n;i++){
