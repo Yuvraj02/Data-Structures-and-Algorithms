@@ -8,26 +8,16 @@ vector<long long> nextLargerElement(vector<long long> arr, int n){
         // Your code here
         
         stack<long long> s;
-        
         s.push(LLONG_MAX);
-        
-        vector<long long> nextGreater(n);
-        
-        for(int i = arr.size()-1; i>=0 ;i--){
-                
-                //The condition is (greater than or equal to)
-            while(!s.empty() && s.top() <= arr[i])
+        vector<long long> ans(n,0);
+        for(int i = n-1; i>=0;i--){
+            while(!s.empty() && arr[i] >= s.top())
                 s.pop();
-            
-            if(s.top()==LLONG_MAX)
-                nextGreater[i] = -1;
-            else
-                nextGreater[i] = s.top();
-            
+                
+            ans[i] = s.top() == LLONG_MAX ? -1 : s.top();
             s.push(arr[i]);
         }
-        
-        return nextGreater;
+        return ans;
 }
 
 int main(){
