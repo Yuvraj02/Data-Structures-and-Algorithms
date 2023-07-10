@@ -5,7 +5,6 @@
 using namespace std;
 
 int main(){
-
     vector<int> A = {7,10,4,3,20,15};
     int k = 3;
 
