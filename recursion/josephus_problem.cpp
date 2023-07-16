@@ -1,0 +1,23 @@
+ #include <iostream>
+
+ using namespace std;
+
+ int solve(int n, int k){
+        if(n==1)
+            return 0;
+            
+        return (solve(n-1,k)+k)%n;
+    }
+    
+    int josephus(int n, int k)
+    {
+       //Your code here
+        return solve(n,k)+1; 
+    }
+
+
+int main(){
+
+    cout<<josephus(5,3);
+
+}
