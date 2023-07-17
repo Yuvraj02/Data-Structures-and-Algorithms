@@ -18,6 +18,6 @@
 
 int main(){
 
-    cout<<josephus(5,3);
+    cout<<josephus(5,2);
 
 }
