@@ -20,9 +20,5 @@ int main(){
     }
     
     cout<<minNum;
-    // for (auto i : A)
-    // {
-    //     cout<<i<<" ";
-    // }
     return 0;
 }
