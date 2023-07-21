@@ -75,6 +75,7 @@ int main(){
     return next[0];
     }
 
+
     int longestCommonSubsequence(string text1, string text2) {
         int n1 = text1.size()+1;
         int n2 = text2.size()+1;
