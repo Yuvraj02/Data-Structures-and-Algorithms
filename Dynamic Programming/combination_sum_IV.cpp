@@ -3,45 +3,59 @@
 
 using namespace std;
 
-int findWays(vector<int> &num, int tar)
-{
-    vector<int> dp(tar+1,0);
+ int solve(vector<int> &nums, int target,vector<int> &dp){
 
-   // int ans = solve(num,tar,dp);
-    dp[0] = 1;
-    for(int i=1; i<=tar;i++){
-        for(int j = 0; j<num.size();j++)
-            if(i-num[j]>=0)
-                dp[i] += dp[i-num[j]];
+        if(target==0)
+            return 1;
+        
+        if(target<0)
+            return 0;
+        
+        if(dp[target]!=-1)
+            return dp[target];
+
+        int ans = 0;
+        
+        for(int i = 0; i<nums.size();i++){
+            ans += solve(nums,target-nums[i],dp);
+        }
+        return dp[target] = ans;
     }
-    return dp[tar];
-}
 
-int main(){
-    vector<int> num = {12,1,3};
-    int target = 4;
-    
-    cout<<findWays(num,target);
-    return 0;
-}
+    int solveTab(vector<int>& nums, int target){
 
-//DP Solution:
-// int solve(vector<int> &nums, int tar,vector<int> &dp){
+        vector<int> dp (target+1, 0);
 
-// // Write your code here.
-//     if(tar==0){
-//         return 1;
-//     }
+        dp[0] = 1;
 
-//     if(tar<0)
-//         return 0; 
+        for(int k = 1; k <=target; k++){
+            
+            long long ans = 0;
+            for(int i = 0; i<nums.size();i++){
+        
+                if(k-nums[i] >=0)
+                    ans+=dp[k-nums[i]];
+            }
+            dp[k] = ans;
+        }
 
-//     if(dp[tar]!=0)
-//         return dp[tar];
-    
-//     for(int i=0;i<nums.size();i++){
-//         dp[tar] += solve(nums,tar-nums[i],dp);
-//     }
+        return dp[target];
 
-//     return dp[tar];
-// }
+    }
+
+    int combinationSum4(vector<int>& nums, int target) {
+        
+        // int n = nums.size();
+        vector<int> dp (target+1, -1);
+
+        //int ans = solve(nums,target,dp);
+        int ans = solveTab(nums,target);
+        return ans;
+    }
+
+    int main(){
+        vector<int> nums = {1,2,3};
+        int target = 4;
+        cout<<combinationSum4(nums,target);
+        return 0;
+    }
