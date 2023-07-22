@@ -3,111 +3,102 @@
 
 using namespace std;
 
-int solveMem(int, vector<int>&, vector<int>&);
-int solveTab(vector<int>&);
+ int solve(int i, vector<int> &nums){
+        if(i>=nums.size())
+            return 0;
 
+        int include = nums[i] + solve(i+2, nums);
 
-int solveTabOptimized(vector<int> &nums){
-    int n = nums.size();
-    
-    //case 1
-    int curr1 = 0,next1=0,prev1=0;
-    for(int index = n-2;index>=0;index--){
-        int include = nums[index] + next1;
-        int exclude = curr1;
-        prev1 = max(include,exclude);
+        int exclude = solve(i+1,nums);
 
-        next1=curr1;
-        curr1=prev1;
+        return max(include,exclude);
     }
-    int case1 = curr1;
 
-    //case 2
-    int curr2 = 0,next2=0,prev2=0;
-    for(int index = n-1; index>=1;index--){
-            int include = nums[index] + next2;
-            int exclude = curr2;
-            prev2 = max(include,exclude);
-            
-            next2 = curr2;
-            curr2 = prev2;
+    int solveMem(vector<int> &a,vector<int> &b){
+
+        int solveA = solve(0,a);
+        int solveB = solve(0,b);
+
+        return max(solveA,solveB);
     }
-    int case2 = curr2;
 
-    return max(case1,case2);
+    int solveTab(vector<int> &a, vector<int> &b){
+        
+        int n1 = a.size();
+        int n2 = b.size();
+        vector<int> dp1 (n1+2, 0);
+        vector<int> dp2 (n2+2, 0);
+
+        //For vector a 
+        for(int i = n1-1; i >=0 ;i--){
+        
+        int include = a[i] + dp1[i+2];
+
+        int exclude = dp1[i+1];
+
+        dp1[i]= max (include,exclude);
+        }
+
+        for(int i = n2-1; i >=0 ;i--){
+        
+        int include = b[i] + dp2[i+2];
+
+        int exclude = dp2[i+1];
+
+        dp2[i]= max (include,exclude);
+        }
+
+        return max(dp1[0],dp2[0]);
+    }
+
+    int spaceOptim(vector<int> &a, vector<int> &b){
+
+        int n = a.size();
+
+        int curr_of_a=0;
+        int next2_of_a=0;
+
+        for(int i = n-1; i>=0; i--){
+
+            int include = a[i] + next2_of_a;
+            int exclude = curr_of_a;
+            next2_of_a = curr_of_a;
+            curr_of_a = max(include,exclude);
+        }
+
+        int curr_of_b=0;
+        int next2_of_b=0;
+
+        for(int i = n-1; i>=0; i--){
+
+            int include = b[i] + next2_of_b;
+            int exclude = curr_of_b;
+            next2_of_b = curr_of_b;
+            curr_of_b = max(include,exclude);
+        }
+        return max(curr_of_a,curr_of_b);
     }
 
     int rob(vector<int>& nums) {
         
-        int n = nums.size();
-
-        if(n==1)
+        if(nums.size()==1)
             return nums[0];
 
-        /* For Memoization
+        vector<int> a;  //Will have houses excluding last house
+        vector<int> b; // Will have houses excluding first and including last house
 
-            vector<int> dp1(n+1,-1),dp2(n+1,-1);
-
-            //Rob first house and leave last house
-            int case1 = solveMem(0,nums,n-2,dp1);
-
-            //Rob last house and leave first house
-            int case2 = solveMem(1,nums,n-1,dp2);
-
-        return max(case1,case2);
-        */
-
-       return solveTabOptimized(nums);
-    }
-int main(){
-    
-    vector<int> arr = {1,2,3,1};
-
-    cout<<rob(arr);
-    return 0;
-
-}
-
-int solveMem(int index, vector<int> &nums, int n, vector<int>&dp){
-        if(index>n)
-            return 0;
-        
-        if(dp[index]!=-1)
-            return dp[index];
-
-        int include = nums[index] + solveMem(index+2, nums,n,dp);
-
-        int exclude = solveMem(index+1,nums,n,dp);
-
-        return dp[index] = max(include,exclude);
-
-    }
-
-    int solveTab(vector<int> &nums){
-        int n = nums.size();
-
-        vector<int> dp1(n+2, 0);
-        vector<int> dp2(n+2, 0);
-
-        //case 1
-        for(int index = n-2;index>=0;index--){
-            int include = nums[index] + dp1[index+2];
-            int exclude = dp1[index+1];
-            dp1[index] = max(include,exclude);
+        for(int i = 0; i<nums.size();i++){
+                if(i==0){
+                    a.push_back(nums[i]);
+                }else if(i==nums.size()-1){
+                    b.push_back(nums[i]);
+                }else{
+                    a.push_back(nums[i]);
+                    b.push_back(nums[i]);
+                }
         }
-    int case1 = dp1[0];
-
-    //case 2
-
-    for(int index = n-1; index>=1;index--){
-            int include = nums[index] + dp2[index+2];
-            int exclude = dp2[index+1];
-
-            dp2[index] = max(include,exclude);
-    }
-    int case2 = dp2[1];
-
-    return max(case1,case2);
-
+       // return solveMem(nums)
+      // return solveTab(a,b);
+        return spaceOptim(a,b);
     }
 
