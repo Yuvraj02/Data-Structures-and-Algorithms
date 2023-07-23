@@ -1,7 +1,6 @@
 #include <iostream>
 
 using namespace std;
-
 //Log N solution
 int pow(int a, int b){
 
