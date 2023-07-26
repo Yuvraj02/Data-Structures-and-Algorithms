@@ -33,7 +33,7 @@ int solve(int x, int y, vector<vector<int>> &matrix,int n,vector<vector<int>> &d
         int max_val = INT_MIN;
         for(int i = 0; i < N; i++){
                 
-            int val = solve(N,Matrix,dp,i);
+            int val = solve(0,i,Matrix,N,dp);
             
             max_val = max(max_val,val);
         }
