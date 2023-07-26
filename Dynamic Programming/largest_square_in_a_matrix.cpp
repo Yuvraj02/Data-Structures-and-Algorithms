@@ -3,89 +3,104 @@
 #include <algorithm>
 using namespace std;
 
-int solve(vector<vector<int>> &A, int i, int j,int &maxSquare){
-    if(i>=A.size() || j>=A[0].size()){
-        return 0;
-    }
-
-    //Check for right side
-    int right = solve(A,i,j+1,maxSquare);
-    //Check for diagonal right
-    int diagRight = solve(A,i+1,j+1,maxSquare);
-    //Check for down
-    int down = solve(A,i+1,j,maxSquare);
-
-    if(A[i][j]==1){
-        int ans = 1 + min({right,diagRight,down});
-        //Store answer at each step
-        maxSquare = max(maxSquare,ans);
-        return ans;
-    }else{
-        return 0;
-    }
-}
-
-// int maxSquare(int n, int m, vector<vector<int>> mat){
-//         // code here
-//     int maxSquare = INT32_MIN;
-//     solve(mat,0,0,maxSquare);
-//     return maxSquare;
-//     vector<vector<int>> dp(n+1,vector<int>(m+1, 0));
-
-//     dp[n][m] = 0;
-//     int maxSquare = INT32_MIN;
-
-//     for(int i=n-1;i>=0;i--){
-//         for(int j = m-1;j>=0;j--){
-//              //Check for right side
-//         int right = dp[i][j+1];
-//             //Check for diagonal right
-//         int diagRight = dp[i+1][j+1];
-//             //Check for down
-//         int down = dp[i+1][j];
-
-//         if(mat[i][j]==1){
-//             dp[i][j] = 1 + min({right,diagRight,down});
-//             //Store answer at each step
-//             maxSquare = max(maxSquare,dp[i][j]);
+int solve(int i,int j, int n, int m , vector<vector<int>> &mat, int &largest_square,vector<vector<int>> &dp){
             
-//         }else{
-//             dp[i][j]=0;
-//         }
-
-//         }
-//     }
-//     return maxSquare;
-
-// }
-
- int maxSquare(int n, int m, vector<vector<int>> mat){
-
-    vector<int> curr(m+1,0);
-    vector<int> next(m+1,0);
-    int maxSquare = INT32_MIN;
-     for(int i=n-1;i>=0;i--){
-        for(int j = m-1;j>=0;j--){
-             //Check for right side
-        int right = curr[j+1];
-            //Check for diagonal right
-        int diagRight = next[j+1];
-            //Check for down
-        int down = next[j];
-
-        if(mat[i][j]==1){
-            curr[j] = 1 + min({right,diagRight,down});
-            //Store answer at each step
-            maxSquare = max(maxSquare,curr[j]);
-            
-        }else{
-            curr[j]=0;
+        if(i>=n || j >= m)
+            return 0;
+        
+        if(dp[i][j]!=-1)
+            return dp[i][j];
+        
+        int right = solve(i,j+1,n,m,mat,largest_square,dp);
+        
+        int diag_down_right = solve(i+1,j+1,n,m,mat,largest_square,dp);
+        
+        int down = solve(i+1,j,n,m,mat,largest_square,dp);
+        
+        int ans = 0;
+        if(mat[i][j] == 1){
+            ans = 1 + min({right,diag_down_right,down});
+            largest_square = max(largest_square, ans);
         }
+        
+        return dp[i][j] = ans;
+        
+    }
+
+    int solveTab(int n, int m, vector<vector<int>> &mat){
+        
+        int largest_square = 0;
+        
+        vector<vector<int>> dp(n+1,vector<int>(m+1,0));
+        
+        
+        for(int i = n-1; i>=0;i--){
+            for(int j = m-1; j>=0;j--){
+                
+                int right = dp[i][j+1];
+        
+                int diag_down_right = dp[i+1][j+1];
+        
+                int down = dp[i+1][j];
+        
+                int ans = 0;
+                if(mat[i][j] == 1){
+                    ans = 1 + min({right,diag_down_right,down});
+                    largest_square = max(largest_square, ans);
+                }
+        
+                dp[i][j] = ans;
+            }
+        }
+        
+        return largest_square;
+    }
+    
+    int spaceOptim(int n, int m, vector<vector<int>> &mat){
+        
+         int largest_square = 0;
+        
+        // vector<vector<int>> dp(n+1,vector<int>(m+1,0));
+        vector<int> curr(m+1,0);
+        vector<int> next(m+1,0);
+        
+        
+        for(int i = n-1; i>=0;i--){
+            for(int j = m-1; j>=0;j--){
+                
+                int right = curr[j+1];
+        
+                int diag_down_right = next[j+1];
+        
+                int down = next[j];
+        
+                int ans = 0;
+                if(mat[i][j] == 1){
+                    ans = 1 + min({right,diag_down_right,down});
+                    largest_square = max(largest_square, ans);
+                }
+        
+                curr[j] = ans;
+            }
             next = curr;
         }
+        
+        return largest_square;
+        
+        
     }
-    return next[0];
- }
+
+    int maxSquare(int n, int m, vector<vector<int>> mat){
+        // code here
+        int largest_square = 0;
+        
+        vector<vector<int>> dp(n+1,vector<int>(m+1,-1));
+        
+        //solve(0,0,n,m,mat,largest_square,dp);
+        //return largest_square;
+        //return solveTab(n,m,mat);
+        return spaceOptim(n,m,mat);
+    }
 
 int main(){
 
