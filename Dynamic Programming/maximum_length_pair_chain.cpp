@@ -67,6 +67,26 @@ static bool comparator(vector<int> &a, vector<int> &b){
    return next[0];
     }
 
+    bool static compare(vector<int> a, vector<int> b){
+        return a[1] < b[1];
+    }
+
+     int bestSolution(vector<vector<int>>& pairs) {
+        sort(pairs.begin(),pairs.end(),compare);
+        int interval = 0;
+        int count = 1;
+       
+        for(int i = 1; i<pairs.size();i++){
+            
+            if(pairs[i][0] > pairs[interval][1]){
+                interval = i;
+                count++;
+            }
+            
+        }
+        return count;
+    }
+
     int findLongestChain(vector<vector<int>>& pairs) {
         
         sort(pairs.begin(),pairs.end(),comparator);
@@ -75,7 +95,8 @@ static bool comparator(vector<int> &a, vector<int> &b){
 
    // return solve(pairs,1,0,dp);
    //return solveTab(pairs);
-   return solveOptim(pairs);
+   //return solveOptim(pairs);
+   return bestSolution(pairs);
     }
 
 int main(){
